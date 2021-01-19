@@ -1,0 +1,34 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+  }
+
+  body {
+      padding: 0;
+      margin: 0;
+  }
+  html, body, #map {
+      height: 100%;
+      width: 100vw;
+  }
+
+  .navbar {
+    background-color: #e3f2fd;
+  }
+  h3 {
+    padding-left: 1rem;
+  }
+  #selCountry{
+    margin-left: .5rem;
+  }
+  #btnRun{
+    margin-left: .5rem;
+    
+  }
+
+  .modal-body {
+
+    height: 70vh;
+
+    overflow-y: auto;
+
+}
