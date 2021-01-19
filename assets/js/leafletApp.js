@@ -79,6 +79,7 @@ navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 $('#selCountry').on('change', function() {
     let countryCode = $('#selCountry').val();
     
+    //default to home tab
     const showFirstTab = function () {
            $('#nav-home-tab').tab('show');
          }
