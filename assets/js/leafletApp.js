@@ -78,6 +78,7 @@ navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 //add borders to map
 $('#selCountry').on('change', function() {
     let countryCode = $('#selCountry').val();
+    let countryOptionText= $('#selCountry').find('option:selected').text();
     
     //default to home tab
     const showFirstTab = function () {
@@ -91,15 +92,32 @@ $('#selCountry').on('change', function() {
 		dataType: 'json',
 		success: function(result) {
 	
-			console.log('borders', result);
+			console.log('all borders result', result);
 
 			if (map.hasLayer(border)) {
 				map.removeLayer(border);
-			}
+            }
 
-			const filterData = result.data.border.features.filter((val) => (val.properties.iso_a3 === countryCode));
-			
-			border = L.geoJSON(filterData[0], {
+            let countryArray = [];
+            let countryOptionTextArray = [];
+            
+            for (let i = 0; i < result.data.border.features.length; i++) {
+                 if (result.data.border.features[i].properties.iso_a3 === countryCode) {
+                    countryArray.push(result.data.border.features[i]);
+                }
+            };
+
+            for (let i = 0; i < result.data.border.features.length; i++) {
+                if (result.data.border.features[i].properties.name === countryOptionText) {
+                   countryOptionTextArray.push(result.data.border.features[i]);
+               }
+            };
+
+            console.log('country array', countryArray);
+
+            console.log('Odd Array', countryOptionTextArray)
+            
+            border = L.geoJSON(countryOptionTextArray[0], {
 					color: '#ff7800',
 					weight: 2,
 					opacity: 0.65
@@ -110,6 +128,23 @@ $('#selCountry').on('change', function() {
                     padding: [0, 35], 
                     duration: 2
                 });
+
+
+			//const filterData = result.data.border.features.filter((val) => (val.properties.iso_a3 === countryCode));
+         
+            
+
+			// border = L.geoJSON(filterData[0], {
+			// 		color: '#ff7800',
+			// 		weight: 2,
+			// 		opacity: 0.65
+			// 	}).addTo(map);
+            
+            // let bounds = border.getBounds();
+            // map.flyToBounds(bounds, {
+            //         padding: [0, 35], 
+            //         duration: 2
+            //     });
             
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
